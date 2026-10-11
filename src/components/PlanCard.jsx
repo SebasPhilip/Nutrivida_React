@@ -1,7 +1,10 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../Context/CartContext'; 
 
 const PlanCard = ({ plan }) => {
   const navigate = useNavigate();
+  const { agregarAlCarrito } = useContext(CartContext);
 
   const manejarCompra = () => {
     const estaLogueado = localStorage.getItem('usuarioRol');
@@ -10,8 +13,8 @@ const PlanCard = ({ plan }) => {
       alert('Debes iniciar sesión para contratar un plan.');
       navigate('/login');
     } else {
+      agregarAlCarrito(plan);
       alert(`Plan contratado: ${plan.nombre}`);
-      
     }
   };
 
@@ -33,7 +36,6 @@ const PlanCard = ({ plan }) => {
           <h4 className="mt-auto text-success fw-bold">
             ${plan.precio.toLocaleString('es-CL')}
           </h4>
-          
           
           <button 
             className="btn btn-dark w-100 mt-3"

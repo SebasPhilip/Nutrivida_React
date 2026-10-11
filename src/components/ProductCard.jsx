@@ -1,20 +1,21 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../Context/CartContext'; 
 
-const ProductCard = ({ producto }) => {
+const ProductoCard = ({ producto }) => {
   const navigate = useNavigate();
+  const { agregarAlCarrito } = useContext(CartContext);
 
   const manejarCompra = () => {
     
     const estaLogueado = localStorage.getItem('usuarioRol');
 
     if (!estaLogueado) {
-      
       alert('Debes iniciar sesión para agregar productos al carrito.');
       navigate('/login');
     } else {
-      
+      agregarAlCarrito(producto);
       alert(`Producto agregado al carrito: ${producto.nombre}`);
-      
     }
   };
 
@@ -39,7 +40,7 @@ const ProductCard = ({ producto }) => {
             className="btn btn-outline-success w-100 mt-3" 
             onClick={manejarCompra}
           >
-            Agregar
+             Agregar
           </button>
         </div>
       </div>
@@ -47,4 +48,4 @@ const ProductCard = ({ producto }) => {
   );
 };
 
-export default ProductCard;
+export default ProductoCard;
