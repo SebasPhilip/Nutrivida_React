@@ -1,4 +1,23 @@
-const ProductoCard = ({ producto }) => {
+import { useNavigate } from 'react-router-dom';
+
+const ProductCard = ({ producto }) => {
+  const navigate = useNavigate();
+
+  const manejarCompra = () => {
+    
+    const estaLogueado = localStorage.getItem('usuarioRol');
+
+    if (!estaLogueado) {
+      
+      alert('Debes iniciar sesión para agregar productos al carrito.');
+      navigate('/login');
+    } else {
+      
+      alert(`Producto agregado al carrito: ${producto.nombre}`);
+      
+    }
+  };
+
   return (
     <div className="col-md-4 mb-4">
       <div className="card h-100 shadow-sm border-0">
@@ -16,8 +35,11 @@ const ProductoCard = ({ producto }) => {
             ${producto.precio.toLocaleString('es-CL')}
           </h4>
           
-          <button className="btn btn-outline-success w-100 mt-3">
-             Agregar
+          <button 
+            className="btn btn-outline-success w-100 mt-3" 
+            onClick={manejarCompra}
+          >
+            Agregar
           </button>
         </div>
       </div>
@@ -25,4 +47,4 @@ const ProductoCard = ({ producto }) => {
   );
 };
 
-export default ProductoCard;
+export default ProductCard;

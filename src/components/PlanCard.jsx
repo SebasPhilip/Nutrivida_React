@@ -1,4 +1,20 @@
+import { useNavigate } from 'react-router-dom';
+
 const PlanCard = ({ plan }) => {
+  const navigate = useNavigate();
+
+  const manejarCompra = () => {
+    const estaLogueado = localStorage.getItem('usuarioRol');
+
+    if (!estaLogueado) {
+      alert('Debes iniciar sesión para contratar un plan.');
+      navigate('/login');
+    } else {
+      alert(`Plan contratado: ${plan.nombre}`);
+      
+    }
+  };
+
   return (
     <div className="col-md-4 mb-4">
       <div className="card h-100 shadow-sm">
@@ -7,7 +23,6 @@ const PlanCard = ({ plan }) => {
         <div className="card-body d-flex flex-column">
           <h5 className="card-title">{plan.nombre}</h5>
           <p className="card-text text-muted">Categoría: {plan.categoria}</p>
-          
           
           {plan.oferta && (
             <span className="badge bg-warning text-dark mb-2" style={{ width: 'fit-content' }}>
@@ -19,7 +34,11 @@ const PlanCard = ({ plan }) => {
             ${plan.precio.toLocaleString('es-CL')}
           </h4>
           
-          <button className="btn btn-dark w-100 mt-3">
+          
+          <button 
+            className="btn btn-dark w-100 mt-3"
+            onClick={manejarCompra}
+          >
             Añadir al carrito
           </button>
         </div>
