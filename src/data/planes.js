@@ -19,7 +19,6 @@ export const obtenerPlanes = () => {
 export const crearPlan = (plan) => {
   const nuevoPlan = { 
     ...plan, 
-    // Asigna un ID automático basado en el último elemento
     id: planes.length > 0 ? planes[planes.length - 1].id + 1 : 1 
   };
   planes.push(nuevoPlan);

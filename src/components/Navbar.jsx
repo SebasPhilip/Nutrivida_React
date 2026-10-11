@@ -1,61 +1,44 @@
+import { Link } from 'react-router-dom';
+
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
       <div className="container">
         
-        <a className="navbar-brand fw-bold text-success" href="#">NutriVida</a>
+        <Link className="navbar-brand fw-bold text-success fs-3" to="/">NutriVida</Link>
         
-       
-        <button 
-          className="navbar-toggler" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#navbarNav" 
-          aria-controls="navbarNav" 
-          aria-expanded="false" 
-          aria-label="Toggle navigation"
-        >
+        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span className="navbar-toggler-icon"></span>
         </button>
         
-       
         <div className="collapse navbar-collapse" id="navbarNav">
-          
-          
-          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav mx-auto mb-2 mb-lg-0 fs-5">
             <li className="nav-item">
-              <a className="nav-link active" href="#">Home</a>
+              <Link className="nav-link" to="/">Home</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Categorías</a>
+              <Link className="nav-link" to="/categorias">Categorías</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Ofertas</a>
+              <Link className="nav-link" to="/planes">Planes</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Nosotros</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Blog</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Contacto</a>
+              <Link className="nav-link" to="/contacto">Contacto</Link>
             </li>
           </ul>
           
-         
-          <div className="d-flex gap-2 align-items-center">
-            <button className="btn btn-success">
-                 Carrito $5.000
-            </button>
-            <button className="btn btn-outline-primary">
-              Iniciar Sesión
-            </button>
-            <button className="btn btn-primary">
-              Crear Cuenta
-            </button>
-          </div>
           
+          <div className="d-flex gap-3 align-items-center">
+            <Link to="/carrito" className="btn btn-success px-4">
+              Carrito
+            </Link>
+            <Link to="/login" className="btn btn-outline-primary px-3">
+              Iniciar Sesión
+            </Link>
+            <Link to="/registro" className="btn btn-primary px-3">
+              Crear Cuenta
+            </Link>
+          </div>
         </div>
       </div>
     </nav>
