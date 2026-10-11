@@ -11,17 +11,20 @@ const Login = () => {
     setCredenciales({ ...credenciales, [e.target.name]: e.target.value });
   };
 
-const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    
     const resultado = validarLogin(credenciales.correo, credenciales.password);
     
     if (resultado.exito) {
       const { rol, nombre } = resultado.usuario;
       
+      
       localStorage.setItem('usuarioRol', rol);
       
       alert(`¡Bienvenido ${nombre}! Has iniciado sesión con rol: ${rol}`);
       
+  
       if (rol === 'Admin') {
         navigate('/admin'); 
       } else if (rol === 'Nutri') {

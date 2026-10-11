@@ -8,6 +8,8 @@ import Carrito from './components/Carrito';
 import Login from './components/Login';
 import Registro from './components/Registro';
 import Contacto from './components/Contacto';
+import Progreso from './components/Progreso';
+import { Citas } from './components/Citas';
 import './App.css';
 
 function App() {
@@ -25,6 +27,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
           <Route path="/contacto" element={<Contacto />} />
+          <Route path="/progreso" element={<Progreso />} />
+          <Route path="/citas" element={<Citas />} />
         </Routes>
       </BrowserRouter>
     </CartProvider>
