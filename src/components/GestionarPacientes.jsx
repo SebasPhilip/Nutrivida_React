@@ -69,7 +69,7 @@ export const GestionarPacientes = () => {
             value={pacienteSeleccionado}
             onChange={(e) => setPacienteSeleccionado(e.target.value)}
           >
-            <option value="">-- Selecciona un paciente de tu agenda --</option>
+            <option value="">- Selecciona un paciente de tu agenda -</option>
             {pacientes.map(p => (
               <option key={p.id} value={p.id}>{p.nombre}</option>
             ))}
