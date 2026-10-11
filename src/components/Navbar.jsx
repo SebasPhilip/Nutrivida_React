@@ -32,29 +32,44 @@ const Navbar = () => {
               <Link className="nav-link" to="/">Home</Link>
             </li>
 
-            {rolUsuario && (
-              <li className="nav-item">
-                <Link className="nav-link" to="/progreso">Mi Progreso</Link>
-              </li>
+            {rolUsuario !== 'Nutri' && rolUsuario !== 'Admin' && (
+              <>
+                {rolUsuario && (
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/progreso">Mi Progreso</Link>
+                  </li>
+                )}
+                <li className="nav-item">
+                  <Link className="nav-link" to="/productos">Productos</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/planes">Planes</Link>
+                </li>
+              </>
             )}
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/productos">Productos</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/planes">Planes</Link>
-            </li>
             <li className="nav-item">
               <Link className="nav-link" to="/contacto">Contacto</Link>
             </li>
           </ul>
           
           <div className="d-flex gap-3 align-items-center">
-            <Link to="/carrito" className="btn btn-success px-4">
-              Carrito
-            </Link>
+            {rolUsuario !== 'Nutri' && rolUsuario !== 'Admin' && (
+              <Link to="/carrito" className="btn btn-success px-4">
+                Carrito
+              </Link>
+            )}
 
-            {rolUsuario ? (
+            {rolUsuario === 'Nutri' ? (
+              <div className="d-flex align-items-center gap-3">
+                <Link to="/perfil-nutricionista" className="btn btn-outline-success px-3 fw-bold">
+                  Mi Agenda
+                </Link>
+                <button onClick={cerrarSesion} className="btn btn-outline-danger px-3">
+                  Cerrar Sesión
+                </button>
+              </div>
+            ) : rolUsuario ? (
               <div className="d-flex align-items-center gap-3">
                 <Link to="/citas" className="btn btn-outline-primary px-3">
                   Mis Citas

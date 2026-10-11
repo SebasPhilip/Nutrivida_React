@@ -10,6 +10,8 @@ import Registro from './components/Registro';
 import Contacto from './components/Contacto';
 import Progreso from './components/Progreso';
 import { Citas } from './components/Citas';
+import { HomeNutri } from './components/HomeNutri';
+import { GestionarPacientes } from './components/GestionarPacientes';
 import './App.css';
 
 function App() {
@@ -29,6 +31,8 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/progreso" element={<Progreso />} />
           <Route path="/citas" element={<Citas />} />
+          <Route path="/perfil-nutricionista" element={<HomeNutri />} />
+          <Route path="/gestionar-pacientes" element={<GestionarPacientes />} />
         </Routes>
       </BrowserRouter>
     </CartProvider>

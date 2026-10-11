@@ -28,7 +28,7 @@ const Login = () => {
       if (rol === 'Admin') {
         navigate('/admin'); 
       } else if (rol === 'Nutri') {
-        navigate('/agenda'); 
+        navigate('/perfil-nutricionista');
       } else {
         navigate('/'); 
       }
