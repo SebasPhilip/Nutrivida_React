@@ -19,12 +19,10 @@ const Login = () => {
     if (resultado.exito) {
       const { rol, nombre } = resultado.usuario;
       
-      
       localStorage.setItem('usuarioRol', rol);
       
       alert(`¡Bienvenido ${nombre}! Has iniciado sesión con rol: ${rol}`);
       
-  
       if (rol === 'Admin') {
         navigate('/admin'); 
       } else if (rol === 'Nutri') {

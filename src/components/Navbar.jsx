@@ -20,7 +20,12 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-4">
       <div className="container">
-        <Link className="navbar-brand fw-bold text-success fs-3" to="/">NutriVida</Link>
+        <Link 
+          className="navbar-brand fw-bold text-success fs-3" 
+          to={rolUsuario === 'Admin' ? '/admin' : (rolUsuario === 'Nutri' ? '/perfil-nutricionista' : '/')}
+        >
+          NutriVida
+        </Link>
         
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span className="navbar-toggler-icon"></span>
@@ -28,8 +33,12 @@ const Navbar = () => {
         
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0 fs-5 d-flex align-items-center gap-2">
+            
+            {/* El botón Home se adapta según el rol */}
             <li className="nav-item">
-              <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link" to={rolUsuario === 'Admin' ? '/admin' : (rolUsuario === 'Nutri' ? '/perfil-nutricionista' : '/')}>
+                Home
+              </Link>
             </li>
 
             {rolUsuario !== 'Nutri' && rolUsuario !== 'Admin' && (
@@ -65,6 +74,12 @@ const Navbar = () => {
                 <Link to="/perfil-nutricionista" className="btn btn-outline-success px-3 fw-bold">
                   Mi Agenda
                 </Link>
+                <button onClick={cerrarSesion} className="btn btn-outline-danger px-3">
+                  Cerrar Sesión
+                </button>
+              </div>
+            ) : rolUsuario === 'Admin' ? (
+              <div className="d-flex align-items-center gap-3">
                 <button onClick={cerrarSesion} className="btn btn-outline-danger px-3">
                   Cerrar Sesión
                 </button>

@@ -12,15 +12,17 @@ import Progreso from './components/Progreso';
 import { Citas } from './components/Citas';
 import { HomeNutri } from './components/HomeNutri';
 import { GestionarPacientes } from './components/GestionarPacientes';
+import { Admin } from './components/Admin';
+import { AdminClientes } from './components/AdminClientes';
+import { AdminProfesionales } from './components/AdminProfesionales';
+import AdminInventario from './components/AdminInventario';
 import './App.css';
 
 function App() {
   return (
-    
     <CartProvider>
       <BrowserRouter>
         <Navbar />
-        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/planes" element={<Planes />} />
@@ -33,6 +35,10 @@ function App() {
           <Route path="/citas" element={<Citas />} />
           <Route path="/perfil-nutricionista" element={<HomeNutri />} />
           <Route path="/gestionar-pacientes" element={<GestionarPacientes />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin-clientes" element={<AdminClientes />} />
+          <Route path="/admin-profesionales" element={<AdminProfesionales />} />
+          <Route path="/admin-inventario" element={<AdminInventario />} />
         </Routes>
       </BrowserRouter>
     </CartProvider>
