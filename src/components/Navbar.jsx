@@ -5,16 +5,24 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation(); 
   const [rolUsuario, setRolUsuario] = useState(null);
+  
+  const [menuAbierto, setMenuAbierto] = useState(false);
 
   useEffect(() => {
     const rol = localStorage.getItem('usuarioRol');
     setRolUsuario(rol);
+    setMenuAbierto(false);
   }, [location.pathname]);
 
   const cerrarSesion = () => {
     localStorage.removeItem('usuarioRol'); 
     setRolUsuario(null); 
+    setMenuAbierto(false);
     navigate('/'); 
+  };
+
+  const toggleMenu = () => {
+    setMenuAbierto(!menuAbierto);
   };
 
   return (
@@ -27,14 +35,17 @@ const Navbar = () => {
           NutriVida
         </Link>
         
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button 
+          className="navbar-toggler border-0 shadow-none" 
+          type="button" 
+          onClick={toggleMenu}
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
         
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav mx-auto mb-2 mb-lg-0 fs-5 d-flex align-items-center gap-2">
+        <div className={`collapse navbar-collapse ${menuAbierto ? 'show' : ''}`} id="navbarNav">
+          <ul className="navbar-nav mx-auto mb-2 mb-lg-0 fs-5 d-flex align-items-lg-center gap-2 mt-3 mt-lg-0">
             
-            {/* El botón Home se adapta según el rol */}
             <li className="nav-item">
               <Link className="nav-link" to={rolUsuario === 'Admin' ? '/admin' : (rolUsuario === 'Nutri' ? '/perfil-nutricionista' : '/')}>
                 Home
@@ -62,7 +73,7 @@ const Navbar = () => {
             </li>
           </ul>
           
-          <div className="d-flex gap-3 align-items-center">
+          <div className="d-flex flex-column flex-lg-row gap-3 align-items-lg-center mt-3 mt-lg-0 pb-3 pb-lg-0">
             {rolUsuario !== 'Nutri' && rolUsuario !== 'Admin' && (
               <Link to="/carrito" className="btn btn-success px-4">
                 Carrito
@@ -70,7 +81,7 @@ const Navbar = () => {
             )}
 
             {rolUsuario === 'Nutri' ? (
-              <div className="d-flex align-items-center gap-3">
+              <div className="d-flex flex-column flex-lg-row align-items-lg-center gap-3">
                 <Link to="/perfil-nutricionista" className="btn btn-outline-success px-3 fw-bold">
                   Mi Agenda
                 </Link>
@@ -79,13 +90,13 @@ const Navbar = () => {
                 </button>
               </div>
             ) : rolUsuario === 'Admin' ? (
-              <div className="d-flex align-items-center gap-3">
+              <div className="d-flex flex-column flex-lg-row align-items-lg-center gap-3">
                 <button onClick={cerrarSesion} className="btn btn-outline-danger px-3">
                   Cerrar Sesión
                 </button>
               </div>
             ) : rolUsuario ? (
-              <div className="d-flex align-items-center gap-3">
+              <div className="d-flex flex-column flex-lg-row align-items-lg-center gap-3">
                 <Link to="/citas" className="btn btn-outline-primary px-3">
                   Mis Citas
                 </Link>

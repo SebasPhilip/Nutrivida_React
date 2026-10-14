@@ -136,8 +136,8 @@ export const HomeNutri = () => {
                       <td className="py-3">{cita.fecha}</td>
                       <td className="py-3 text-capitalize">{cita.motivo}</td>
                       <td className="px-4 py-3 text-center">
-                        <Link to="/gestionar-pacientes" className="btn btn-outline-success fw-bold btn-sm px-3">
-                          Atender Ficha
+                        <Link to="/gestionar-pacientes" className="btn btn-primary fw-bold btn-sm px-3 shadow-sm">
+                          Registrar Medición
                         </Link>
                       </td>
                     </tr>

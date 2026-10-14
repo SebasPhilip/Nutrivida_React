@@ -45,7 +45,7 @@ describe('Pruebas Unitarias - ProductCard', () => {
 
   
     expect(container.textContent).toContain('Proteína Whey');
-    expect(container.textContent).toContain('35.000'); // Precio formateado
+    expect(container.textContent).toContain('35.000'); 
     expect(container.textContent).toContain('Stock disponible: 15');
   });
 

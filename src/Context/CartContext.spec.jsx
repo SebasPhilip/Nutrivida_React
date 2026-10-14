@@ -55,7 +55,6 @@ describe('Pruebas Unitarias - CartContext (Lógica del Carrito)', () => {
 
   it('T09: Vaciar el carrito devuelve la cantidad y el total a 0', () => {
     act(() => { createRoot(container).render(<CartProvider><TestComponent /></CartProvider>); });
-    // Agregamos y luego vaciamos
     act(() => { container.querySelector('[data-testid="btn-add"]').dispatchEvent(new MouseEvent('click', { bubbles: true })); });
     act(() => { container.querySelector('[data-testid="btn-clear"]').dispatchEvent(new MouseEvent('click', { bubbles: true })); });
     

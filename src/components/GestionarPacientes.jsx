@@ -110,8 +110,8 @@ export const GestionarPacientes = () => {
                     <textarea className="form-control" id="observaciones" rows="3" placeholder="Anota recomendaciones o cambios..." value={formData.observaciones} onChange={handleChange}></textarea>
                   </div>
 
-                  <button type="submit" className="btn btn-success w-100 fw-bold py-2">
-                    Guardar Ficha
+                  <button type="submit" className="btn btn-success w-100 fw-bold py-2 mt-3">
+                    Guardar Mediciones
                   </button>
                 </form>
               </div>
