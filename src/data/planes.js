@@ -13,7 +13,7 @@ let planes = [
 
 export const obtenerPlanes = () => {
   return [...planes];
-};
+}; 
 
 
 export const crearPlan = (plan) => {
