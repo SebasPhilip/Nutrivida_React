@@ -16,7 +16,7 @@ import { Admin } from './components/Admin';
 import { AdminClientes } from './components/AdminClientes';
 import { AdminProfesionales } from './components/AdminProfesionales';
 import AdminInventario from './components/AdminInventario';
-import './App.css';
+
 
 function App() {
   return (

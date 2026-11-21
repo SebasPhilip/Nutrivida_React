@@ -4,7 +4,7 @@ export const api = axios.create({
 baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:8080',
 });
 
-const RESOURCE = '/api/productos';
+const RESOURCE = '/api/v1/productos';
 
 const ProductosService = {
 getAll: () => api.get(RESOURCE), // GET → 200

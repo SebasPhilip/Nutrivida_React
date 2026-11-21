@@ -1,79 +1,83 @@
-import { useState, useEffect } from 'react';
-import ProductoCard from './ProductCard';
-import { obtenerProductos } from '../data/productos';
+import { useEffect, useState } from 'react';
+import ProductosService, { describeError } from '../services/productosService';
+import ProductosForm from './ProductosForm';
+import ProductosList from './ProductosList';
 
-const Categorias = () => {
- 
+const Productos = () => {
   const [productos, setProductos] = useState([]);
-  
-  const [productosFiltrados, setProductosFiltrados] = useState([]);
-  
-  const [categoriaActiva, setCategoriaActiva] = useState('Todos');
+  const [productoToEdit, setProductoToEdit] = useState(null);
+  const [message, setMessage] = useState(null);
+
+  const loadProductos = async () => {
+    try {
+      const response = await ProductosService.getAll();
+      setProductos(response.data);
+    } catch (error) {
+      setMessage({ type: 'error', text: describeError(error) });
+    }
+  };
 
   useEffect(() => {
-    const datos = obtenerProductos();
-    setProductos(datos);
-    setProductosFiltrados(datos); 
+    loadProductos();
   }, []);
 
-  
-  const filtrarPorCategoria = (categoria) => {
-    setCategoriaActiva(categoria);
-    
-    if (categoria === 'Todos') {
-      setProductosFiltrados(productos);
-    } else {
-      const filtrados = productos.filter(prod => prod.categoria === categoria);
-      setProductosFiltrados(filtrados);
+  const handleSave = async (producto) => {
+    try {
+      if (productoToEdit) {
+        await ProductosService.update(productoToEdit.id, producto);
+        setMessage({ type: 'ok', text: `Producto #${productoToEdit.id} actualizado.` });
+        setProductoToEdit(null);
+      } else {
+        const response = await ProductosService.create(producto);
+        setMessage({ type: 'ok', text: `Producto creado con id ${response.data.id}.` });
+      }
+      await loadProductos();
+      return true;
+    } catch (error) {
+      setMessage({ type: 'error', text: describeError(error) });
+      return false;
+    }
+  };
+
+  const handleDelete = async (producto) => {
+    if (!window.confirm(`¿Eliminar "${producto.nombre}"?`)) return;
+    try {
+      await ProductosService.remove(producto.id);
+      setMessage({ type: 'ok', text: `Producto "${producto.nombre}" eliminado.` });
+      if (productoToEdit?.id === producto.id) setProductoToEdit(null);
+      await loadProductos();
+    } catch (error) {
+      setMessage({ type: 'error', text: describeError(error) });
     }
   };
 
   return (
     <div className="container mt-4 mb-5">
-      <h2 className="text-center fw-bold text-success mb-4">Tienda de Suplementos</h2>
-      
-      
-      <div className="d-flex justify-content-center gap-2 mb-5 flex-wrap">
-        <button 
-          className={`btn ${categoriaActiva === 'Todos' ? 'btn-success' : 'btn-outline-success'}`}
-          onClick={() => filtrarPorCategoria('Todos')}
-        >
-          Todos
-        </button>
-        <button 
-          className={`btn ${categoriaActiva === 'Suplementos' ? 'btn-success' : 'btn-outline-success'}`}
-          onClick={() => filtrarPorCategoria('Suplementos')}
-        >
-          Suplementos
-        </button>
-        <button 
-          className={`btn ${categoriaActiva === 'Vitaminas' ? 'btn-success' : 'btn-outline-success'}`}
-          onClick={() => filtrarPorCategoria('Vitaminas')}
-        >
-          Vitaminas
-        </button>
-        <button 
-          className={`btn ${categoriaActiva === 'Snacks' ? 'btn-success' : 'btn-outline-success'}`}
-          onClick={() => filtrarPorCategoria('Snacks')}
-        >
-          Snacks Saludables
-        </button>
+      <div className="text-center mb-4">
+        <h2 className="text-success fw-bold">Gestión de Productos</h2>
+        <p className="text-muted">Conectado a Spring Boot en :8080</p>
       </div>
 
-      
-      <div className="row">
-        {productosFiltrados.length > 0 ? (
-          productosFiltrados.map((producto) => (
-            <ProductoCard key={producto.id} producto={producto} />
-          ))
-        ) : (
-          <div className="col-12 text-center py-5">
-            <p className="text-muted fs-5">No hay productos en esta categoría.</p>
-          </div>
-        )}
-      </div>
+      {message && (
+        <div className={`alert ${message.type === 'ok' ? 'alert-success' : 'alert-danger'} d-flex justify-content-between`}>
+          <span>{message.text}</span>
+          <button type="button" className="btn-close" onClick={() => setMessage(null)} />
+        </div>
+      )}
+
+      <ProductosForm
+        productoToEdit={productoToEdit}
+        onSave={handleSave}
+        onCancel={() => setProductoToEdit(null)}
+      />
+
+      <ProductosList
+        productos={productos}
+        onEdit={setProductoToEdit}
+        onDelete={handleDelete}
+      />
     </div>
   );
 };
 
-export default Categorias;
+export default Productos;

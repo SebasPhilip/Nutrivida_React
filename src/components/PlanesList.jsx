@@ -21,11 +21,11 @@ return (
 <td>{plan.nombre}</td>
 <td>{plan.precio}</td>
 <td>{plan.categoria}</td>
-<td>{plan.oferta}</td>
+<td>{plan.oferta ? 'Sí' : 'No'}</td>
 <td className="actions">
-<button type="button" onClick={() => onEdit(producto)}>Editar</button>
+<button type="button" onClick={() => onEdit(plan)}>Editar</button>
 <button type="button" className="danger" onClick={() =>
-onDelete(producto)}>Eliminar</button>
+onDelete(plan)}>Eliminar</button>
 </td>
 </tr>
 ))}
