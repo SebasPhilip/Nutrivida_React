@@ -33,7 +33,7 @@ export default function ProductosForm({ productoToEdit, onSave, onCancel }) {
   const isEditing = Boolean(productoToEdit);
 
   return (
-    <form className="book-form" onSubmit={handleSubmit}>
+    <form className="productosform" onSubmit={handleSubmit}>
       <h2>{isEditing ? `Editar producto #${productoToEdit.id}` : 'Nuevo producto'}</h2>
       <label>
         Nombre
