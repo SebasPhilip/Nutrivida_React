@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { registrarUsuario } from '../data/usuarios';
+import AuthService from '../services/authService';
 
 const Registro = () => {
   const navigate = useNavigate();
@@ -16,15 +16,16 @@ const Registro = () => {
   };
 
   
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const resultado = registrarUsuario(formData);
-    
-    if (resultado.exito) {
-      alert("¡Cuenta creada con éxito! .");
-      navigate('/login'); 
-    } else {
-      setMensaje(resultado.mensaje);
+    setMensaje('');
+
+    try {
+      await AuthService.registro(formData);
+      alert("¡Cuenta creada con éxito! Ahora puedes iniciar sesión.");
+      navigate('/login');
+    } catch (err) {
+      setMensaje(err.response?.data?.error ?? 'No hubo respuesta del servidor. Revisa que el backend esté corriendo.');
     }
   };
 

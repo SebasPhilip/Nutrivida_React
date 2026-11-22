@@ -1,8 +1,10 @@
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { useAuth } from '../auth/AuthContext';
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const location = useLocation(); 
   const [rolUsuario, setRolUsuario] = useState(null);
   
@@ -15,7 +17,7 @@ const Navbar = () => {
   }, [location.pathname]);
 
   const cerrarSesion = () => {
-    localStorage.removeItem('usuarioRol'); 
+    logout();
     setRolUsuario(null); 
     setMenuAbierto(false);
     navigate('/'); 

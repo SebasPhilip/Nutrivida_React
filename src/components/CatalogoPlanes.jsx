@@ -1,42 +1,42 @@
 import { useEffect, useState } from 'react';
-import ProductosService, { describeError } from '../services/productosService';
-import ProductoCard from './ProductCard';
+import PlanesService, { describeError } from '../services/planesService';
+import PlanCard from './PlanCard';
 
-const CatalogoProductos = () => {
-  const [productos, setProductos] = useState([]);
+const CatalogoPlanes = () => {
+  const [planes, setPlanes] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const cargarProductos = async () => {
+    const cargarPlanes = async () => {
       try {
-        const response = await ProductosService.getAll();
-        setProductos(response.data);
+        const response = await PlanesService.getAll();
+        setPlanes(response.data);
       } catch (err) {
         setError(describeError(err));
       }
     };
-    cargarProductos();
+    cargarPlanes();
   }, []);
 
   return (
     <div className="container mt-4 mb-5">
       <div className="text-center mb-4">
-        <h2 className="text-success fw-bold">Nuestros Productos</h2>
-        <p className="text-muted">Suplementos y alimentos para acompañar tu plan</p>
+        <h2 className="text-success fw-bold">Nuestros Planes Nutricionales</h2>
+        <p className="text-muted">Elige el plan que mejor se adapte a tus objetivos</p>
       </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
 
-      {productos.length === 0 && !error ? (
-        <p className="text-center text-muted">No hay productos disponibles por el momento.</p>
+      {planes.length === 0 && !error ? (
+        <p className="text-center text-muted">No hay planes disponibles por el momento.</p>
       ) : (
         <div className="row">
-          {productos.map((producto) => (
-            <ProductoCard
-              key={producto.id}
-              producto={{
-                ...producto,
-                imagen: producto.imagen || 'https://placehold.co/600x400/198754/ffffff?text=Producto+NutriVida',
+          {planes.map((plan) => (
+            <PlanCard
+              key={plan.id}
+              plan={{
+                ...plan,
+                imagen: plan.imagen || 'https://placehold.co/600x400/198754/ffffff?text=Plan+NutriVida',
               }}
             />
           ))}
@@ -46,4 +46,4 @@ const CatalogoProductos = () => {
   );
 };
 
-export default CatalogoProductos;
+export default CatalogoPlanes;

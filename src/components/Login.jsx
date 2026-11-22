@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { validarLogin } from '../data/usuarios';
+import { useAuth } from '../auth/AuthContext';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [credenciales, setCredenciales] = useState({ correo: '', password: '' });
   const [error, setError] = useState('');
 
@@ -11,27 +12,27 @@ const Login = () => {
     setCredenciales({ ...credenciales, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    const resultado = validarLogin(credenciales.correo, credenciales.password);
-    
-    if (resultado.exito) {
-      const { rol, nombre } = resultado.usuario;
-      
-      localStorage.setItem('usuarioRol', rol);
-      
-      alert(`¡Bienvenido ${nombre}! Has iniciado sesión con rol: ${rol}`);
-      
-      if (rol === 'Admin') {
-        navigate('/admin'); 
-      } else if (rol === 'Nutri') {
+    setError('');
+
+    try {
+      const sesion = await login(credenciales.correo, credenciales.password);
+      alert(`¡Bienvenido ${sesion.nombre}! Has iniciado sesión con rol: ${sesion.rol}`);
+
+      if (sesion.rol === 'Admin') {
+        navigate('/admin');
+      } else if (sesion.rol === 'Nutri') {
         navigate('/perfil-nutricionista');
       } else {
-        navigate('/'); 
+        navigate('/');
       }
-    } else {
-      setError(resultado.mensaje);
+    } catch (err) {
+      if (err.response) {
+        setError(err.response.data?.error ?? 'Correo o contraseña incorrectos. Acceso denegado.');
+      } else {
+        setError('No hubo respuesta del servidor. Revisa que el backend esté corriendo.');
+      }
     }
   };
 
