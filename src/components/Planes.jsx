@@ -55,7 +55,6 @@ const Planes = () => {
     <div className="container mt-4 mb-5">
       <div className="text-center mb-4">
         <h2 className="text-success fw-bold">Gestión de Planes</h2>
-        <p className="text-muted">Conectado a Spring Boot en :8080</p>
       </div>
 
       {message && (

@@ -1,8 +1,6 @@
-import axios from 'axios';
+import api from './http';
 
-export const api = axios.create({
-baseURL: import.meta.env.VITE_API_URL ?? '',
-});
+export { describeError } from './http';
 
 const RESOURCE = '/api/v1/planes';
 
@@ -15,14 +13,3 @@ remove: (id) => api.delete(`${RESOURCE}/${id}`), // DELETE → 204 | 404
 };
 export default PlanesService;
 
-export function describeError(error) {
-if (error.response) {
-const { status, data } = error.response;
-return `El backend respondió ${status}: ${data?.error ?? 'error sin detalle'}`;
-}
-if (error.request) {
-
-return 'No hubo respuesta del backend. Revisa que Spring Boot esté corriendo en el puerto 8080 y que CORS permita http://localhost:3000 (detalle en DevTools →Console).';
-}
-return `Error inesperado: ${error.message}`;
-}
