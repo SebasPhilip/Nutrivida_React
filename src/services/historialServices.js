@@ -7,7 +7,8 @@ baseURL: import.meta.env.VITE_API_URL ??'',
 const RESOURCE = '/api/v1/historial';
 
 const HistorialService = {
-getAll: () => api.get(RESOURCE), // GET → 200
+getAll: () => api.get(RESOURCE),
+getByPaciente: (pacienteId) => api.get(RESOURCE, { params: { pacienteId } }), // GET → 200
 getById: (id) => api.get(`${RESOURCE}/${id}`), // GET → 200 | 404
 create: (historial) => api.post(RESOURCE, historial), // POST → 201
 update: (id, historial) => api.put(`${RESOURCE}/${id}`, historial), // PUT → 200 | 404

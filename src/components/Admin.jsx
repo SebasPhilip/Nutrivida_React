@@ -39,6 +39,8 @@ export const Admin = () => {
       <div className="d-flex gap-3 mb-4 flex-wrap">
         <Link to="/admin" className="btn btn-success fw-bold px-4">Consultar Métricas</Link>
         <Link to="/admin-inventario" className="btn btn-outline-success fw-bold px-4">Gestión de Inventario</Link>
+        <Link to="/admin-planes" className="btn btn-outline-success fw-bold px-4">Gestión de Planes</Link>
+        <Link to="/admin-productos" className="btn btn-outline-success fw-bold px-4">Gestión de Productos</Link>
         <Link to="/admin-profesionales" className="btn btn-outline-success fw-bold px-4">Profesionales y Citas</Link>
       </div>
 
@@ -112,6 +114,13 @@ export const Admin = () => {
             <div className="progress shadow-sm" style={{ height: '22px' }}>
               <div className="progress-bar" style={{ width: metricas.daniela.ancho, backgroundColor: '#75b798', transition: 'width 0.5s' }}></div>
             </div>
+            <div className="d-flex gap-3 mb-4 flex-wrap">
+                <Link to="/admin" className="btn btn-success fw-bold px-4">Consultar Métricas</Link>
+                <Link to="/admin-inventario" className="btn btn-outline-success fw-bold px-4">Gestión de Inventario</Link>
+                <Link to="/admin-planes" className="btn btn-outline-success fw-bold px-4">Gestión de Planes</Link>
+                <Link to="/admin-productos" className="btn btn-outline-success fw-bold px-4">Gestión de Productos</Link>
+                <Link to="/admin-profesionales" className="btn btn-outline-success fw-bold px-4">Profesionales y Citas</Link>
+             </div>
           </div>
         </div>
       </div>
